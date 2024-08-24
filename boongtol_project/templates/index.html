@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Degree Calculator</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1 id="top">Guitar Degree Calculator</h1>
+        <form method="post" onsubmit="scrollToAdjustedTop()">
+            <label for="current_string_number">현재 줄 번호:</label>
+            <input type="text" id="current_string_number" name="current_string_number" required><br><br>
+            <label for="current_fret_number">현재 프렛 번호:</label>
+            <input type="text" id="current_fret_number" name="current_fret_number" required><br><br>
+            <label for="current_degree">현재 도수:</label>
+            <input type="text" id="current_degree" name="current_degree" required><br><br>
+            <label for="increase_degree">올릴 도수:</label>
+            <input type="text" id="increase_degree" name="increase_degree" required><br><br>
+            <input type="submit" value="계산하기">
+        </form>
+
+        {% if results %}
+            <div id="results">
+                <h2>결과:</h2>
+                <ul>
+                    {% for result in results %}
+                        <li>{{ result }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>입력한 값들:</h3>
+                <p>현재 줄 번호: {{ current_string_number }}</p>
+                <p>현재 프렛 번호: {{ current_fret_number }}</p>
+                <p>현재 도수: {{ current_degree }}</p>
+                <p>올릴 도수: {{ increase_degree }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function scrollToAdjustedTop() {
+            setTimeout(function() {
+                window.scrollTo({
+                    top: document.getElementById("top").offsetTop,
+                    behavior: 'smooth' // 부드러운 스크롤 효과
+                });
+            }, 0);
+        }
+    </script>
+</body>
+</html>
