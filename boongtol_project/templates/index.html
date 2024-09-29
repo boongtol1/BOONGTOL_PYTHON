@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Guitar Degree Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #218838;
+        }
+
+        #results {
+            margin-top: 20px;
+        }
+
+        @media screen and (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            input[type="text"], input[type="submit"] {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 id="top">Guitar Degree Calculator</h1>
+        <form method="post" onsubmit="scrollToAdjustedTop()">
+            <label for="current_string_number">현재 줄 번호:</label>
+            <input type="text" id="current_string_number" name="current_string_number" required><br><br>
+            <label for="current_fret_number">현재 프렛 번호:</label>
+            <input type="text" id="current_fret_number" name="current_fret_number" required><br><br>
+            <label for="current_degree">현재 도수:</label>
+            <input type="text" id="current_degree" name="current_degree" required><br><br>
+            <label for="increase_degree">올릴 도수:</label>
+            <input type="text" id="increase_degree" name="increase_degree" required><br><br>
+            <input type="submit" value="계산하기">
+        </form>
+
+        {% if results %}
+            <div id="results">
+                <h2>결과:</h2>
+                <ul>
+                    {% for result in results %}
+                        <li>{{ result }}</li>
+                    {% endfor %}
+                </ul>
+                <h3>입력한 값들:</h3>
+                <p>현재 줄 번호: {{ current_string_number }}</p>
+                <p>현재 프렛 번호: {{ current_fret_number }}</p>
+                <p>현재 도수: {{ current_degree }}</p>
+                <p>올릴 도수: {{ increase_degree }}</p>
+            </div>
+        {% endif %}
+    </div>
+
+    <script>
+        function scrollToAdjustedTop() {
+            setTimeout(function() {
+                window.scrollTo({
+                    top: document.getElementById("top").offsetTop,
+                    behavior: 'smooth' // 부드러운 스크롤 효과
+                });
+            }, 0);
+        }
+    </script>
+</body>
+</html>
