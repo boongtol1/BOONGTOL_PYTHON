@@ -29,14 +29,14 @@ def relu_grad(x):
     
 
 def softmax(x):
-    if x.ndim == 2:
+    if x.ndim == 2: # 2차원 배열이 입력된다면 한 행씩 따로 softmax 값을 계산한다! 를 구현해놓은것!
         x = x.T
         x = x - np.max(x, axis=0)
         y = np.exp(x) / np.sum(np.exp(x), axis=0)
         return y.T 
 
     x = x - np.max(x) # 오버플로 대책
-    return np.exp(x) / np.sum(np.exp(x))
+    return np.exp(x) / np.sum(np.exp(x))    
 
 
 def mean_squared_error(y, t):
