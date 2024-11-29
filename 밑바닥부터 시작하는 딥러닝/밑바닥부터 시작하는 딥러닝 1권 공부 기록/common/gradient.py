@@ -46,7 +46,7 @@ def numerical_gradient(f, x):
         fxh2 = f(x) # f(x-h)
         grad[idx] = (fxh1 - fxh2) / (2*h)
         
-        x[idx] = tmp_val # 값 복원
+        x[idx] = tmp_val # 값 복원 --> net.W 도 원상복귀됨!!!(id 동일 --> 연동논리!)
         it.iternext()   
         
     return grad
