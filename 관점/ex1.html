@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>기하 문제</title>
+    <style>
+        body {
+            font-family: 'Malgun Gothic', Arial, sans-serif;
+            margin: 20px;
+            background-color: #f8f9fa;
+        }
+        .problem-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .problem-header {
+            border-bottom: 3px solid #28a745;
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+        .problem-number {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+        .problem-title {
+            font-size: 20px;
+            color: #666;
+            margin-left: 20px;
+        }
+        .problem-content {
+            display: flex;
+            align-items: flex-start;
+            gap: 40px;
+            margin-top: 20px;
+        }
+        .color-legend {
+            display: flex;
+            gap: 15px;
+            margin-top: 15px;
+            flex-wrap: wrap;
+        }
+        .color-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 12px;
+            background-color: #f8f9fa;
+            border-radius: 20px;
+            border: 1px solid #dee2e6;
+        }
+        .color-circle {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            border: 2px solid #333;
+        }
+        .color-red { background-color: #dc3545; }
+        .color-blue { background-color: #0d6efd; }
+        .color-yellow { background-color: #ffc107; }
+        .color-green { background-color: #198754; }
+        .color-purple { background-color: #6f42c1; }
+        .color-name {
+            font-weight: 500;
+            font-size: 14px;
+            color: #333;
+        }
+        .problem-text {
+            flex: 1;
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #28a745;
+        }
+        .diagram-container {
+            flex: 0 0 320px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            background-color: #fff;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+        }
+        .graph {
+            width: 280px;
+            height: 280px;
+            position: relative;
+        }
+        .graph-point {
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            background-color: #333;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            z-index: 10;
+        }
+        .graph-svg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        .graph-line {
+            stroke: #666;
+            stroke-width: 2;
+            fill: none;
+        }
+        /* Graph points positioning */
+        .point-A { top: 40px; left: 128px; }
+        .point-B { top: 100px; left: 200px; }
+        .point-C { top: 180px; left: 200px; }
+        .point-D { top: 180px; left: 80px; }
+        .point-E { top: 100px; left: 80px; }
+    </style>
+</head>
+<body>
+    <div class="problem-container">
+        <div class="problem-header">
+        </div>
+        
+        <div class="problem-content">
+            <div class="problem-text">
+                <strong>예제 1</strong> 오른쪽 그래프의 A, B, C, D, E에 주어진 다섯 가지 색(빨강, 파랑, 노랑, 초록, 보라)의 전부 또는 일부를 사용하여 칠하려고 한다. 같은 색을 여러 번 사용해도 좋으나 선으로 연결된 인접한 꼭짓점에는 서로 다른 색을 칠하는 경우의 수를 구하여라.
+                
+                <div class="color-legend">
+                    <div class="color-item">
+                        <div class="color-circle color-red"></div>
+                        <span class="color-name">빨강</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-circle color-blue"></div>
+                        <span class="color-name">파랑</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-circle color-yellow"></div>
+                        <span class="color-name">노랑</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-circle color-green"></div>
+                        <span class="color-name">초록</span>
+                    </div>
+                    <div class="color-item">
+                        <div class="color-circle color-purple"></div>
+                        <span class="color-name">보라</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="diagram-container">
+                <div class="graph">
+                    <!-- SVG for precise lines -->
+                    <svg class="graph-svg" viewBox="0 0 280 280">
+                        <!-- Graph edges -->
+                        <line x1="140" y1="52" x2="212" y2="112" class="graph-line"/>
+                        <line x1="212" y1="112" x2="212" y2="192" class="graph-line"/>
+                        <line x1="212" y1="192" x2="92" y2="192" class="graph-line"/>
+                        <line x1="92" y1="192" x2="92" y2="112" class="graph-line"/>
+                        <line x1="92" y1="112" x2="140" y2="52" class="graph-line"/>
+                        <line x1="140" y1="52" x2="212" y2="192" class="graph-line"/>
+                        <line x1="140" y1="52" x2="92" y2="192" class="graph-line"/>
+                    </svg>
+                    
+                    <!-- Graph points -->
+                    <div class="graph-point point-A">A</div>
+                    <div class="graph-point point-B">B</div>
+                    <div class="graph-point point-C">C</div>
+                    <div class="graph-point point-D">D</div>
+                    <div class="graph-point point-E">E</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
